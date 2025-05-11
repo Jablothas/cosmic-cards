@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://cb47u5t5btn4w"]
+[gd_scene load_steps=10 format=3 uid="uid://cb47u5t5btn4w"]
 
 [ext_resource type="Texture2D" uid="uid://4s87386333sd" path="res://textures/skybox/space.hdr" id="1_67dui"]
-[ext_resource type="Texture2D" uid="uid://b24l5wsk6gyhc" path="res://textures/floor/test-floor.jpg" id="2_15icf"]
+[ext_resource type="Texture2D" uid="uid://dan80trw76skg" path="res://textures/floor/rusty_metal.jpg" id="2_5vwel"]
+[ext_resource type="Texture2D" uid="uid://cex3rc5i4wmce" path="res://textures/floor/rusty.png" id="2_15icf"]
 [ext_resource type="Script" uid="uid://b72yktihl41dl" path="res://scripts/player.gd" id="3_15icf"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_5vwel"]
@@ -17,7 +18,12 @@ tonemap_mode = 2
 glow_enabled = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_asflf"]
-albedo_texture = ExtResource("2_15icf")
+albedo_color = Color(1, 1, 1, 0)
+albedo_texture = ExtResource("2_5vwel")
+albedo_texture_force_srgb = true
+normal_enabled = true
+normal_scale = 0.1
+normal_texture = ExtResource("2_15icf")
 uv1_triplanar = true
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_rpffh"]
