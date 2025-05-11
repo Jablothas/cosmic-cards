@@ -1,0 +1,59 @@
+[gd_scene load_steps=9 format=3 uid="uid://cb47u5t5btn4w"]
+
+[ext_resource type="Texture2D" uid="uid://4s87386333sd" path="res://textures/skybox/space.hdr" id="1_67dui"]
+[ext_resource type="Texture2D" uid="uid://b24l5wsk6gyhc" path="res://textures/floor/test-floor.jpg" id="2_15icf"]
+[ext_resource type="Script" uid="uid://b72yktihl41dl" path="res://scripts/player.gd" id="3_15icf"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_5vwel"]
+panorama = ExtResource("1_67dui")
+
+[sub_resource type="Sky" id="Sky_kfkk6"]
+sky_material = SubResource("PanoramaSkyMaterial_5vwel")
+
+[sub_resource type="Environment" id="Environment_i7tgv"]
+background_mode = 2
+sky = SubResource("Sky_kfkk6")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_asflf"]
+albedo_texture = ExtResource("2_15icf")
+uv1_triplanar = true
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_rpffh"]
+
+[node name="World" type="Node3D"]
+
+[node name="Environment" type="Node3D" parent="."]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment"]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Environment/DirectionalLight3D"]
+environment = SubResource("Environment_i7tgv")
+
+[node name="Stage" type="Node3D" parent="."]
+
+[node name="Floor" type="CSGBox3D" parent="Stage"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+use_collision = true
+size = Vector3(100, 1, 100)
+material = SubResource("StandardMaterial3D_asflf")
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+script = ExtResource("3_15icf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_rpffh")
+debug_color = Color(1, 1, 1, 1)
+
+[node name="Head" type="Node3D" parent="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.27124, 0)
+
+[node name="Camera3D" type="Camera3D" parent="CharacterBody3D/Head"]
+transform = Transform3D(2, 0, 0, 0, 1, 0, 0, 0, 2, 0, -1.36364, 0)
+
+[node name="Player" type="Node3D" parent="."]
